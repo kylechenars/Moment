@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.moment.android">
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -19,6 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".FruitActivity"></activity>
+        <activity android:name=".NewClock"></activity>
+        <activity android:name=".Clock"></activity>
     </application>
 
 </manifest>

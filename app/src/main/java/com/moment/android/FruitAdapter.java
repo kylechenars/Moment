@@ -46,7 +46,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(mContext,FruitActivity.class);
+                Intent intent=new Intent(mContext,Clock.class);
                 mContext.startActivity(intent);
             }
         });

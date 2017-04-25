@@ -1,5 +1,6 @@
 package com.moment.android;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
@@ -22,6 +23,8 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    private FloatingActionButton Fab;
 
     private DrawerLayout mDrawerLayout;
     private Card[] cards={new Card("Apple",R.drawable.apple),
@@ -52,12 +55,15 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        //Fab按钮新建一个番茄时钟任务
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"FAB",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this,"FAB",Toast.LENGTH_SHORT).show();
+                Intent intentToNewClock=new Intent(MainActivity.this,NewClock.class);
+                startActivity(intentToNewClock);
             }
         });
         mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
