@@ -18,6 +18,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import org.litepal.tablemanager.Connector;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        Connector.getDatabase();//创建数据库
         initCards();
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recycle_view);
         GridLayoutManager layoutManager=new GridLayoutManager(this,2);//每一行有两个卡片;
