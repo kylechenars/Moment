@@ -2,8 +2,12 @@ package com.moment.android;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +36,15 @@ public class NewClock extends AppCompatActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clock_new);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.clocknew_toolbar);
+        setSupportActionBar(toolbar);
+        //返回箭头toolbar上的
+        ActionBar actionBar=getSupportActionBar();
+        if (actionBar!=null){
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         buttonNew=(Button)findViewById(R.id.buttonMakeNew);
         buttonNew.setOnClickListener(this);
         editName=(EditText)findViewById(R.id.editNameOfEvent);
@@ -39,6 +52,16 @@ public class NewClock extends AppCompatActivity implements View.OnClickListener{
         editNoWork=(EditText)findViewById(R.id.editNoWorkRange);
         editHowMTimes=(EditText)findViewById(R.id.editHowManyTimes);
         editLNoWork=(EditText)findViewById(R.id.editLongTimeNoWork);
+    }
+    //HomeAsUp点击事件，返回上一个活动
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case  android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -67,19 +90,6 @@ public class NewClock extends AppCompatActivity implements View.OnClickListener{
                 intent.putExtra("tital_data",inputTital);
                 startActivity(intent);
                 n=0;}
-                /*//放入数据库
-                ClockDB Clockdb=new ClockDB();
-                Clockdb.setNumberId(1);
-                Clockdb.setEventName(inputTital);
-                //Log.d("NewClock","set Name");
-                Clockdb.setWorkTime(Integer.parseInt(WorkTime));
-                Clockdb.setRelxTime(Integer.parseInt(NoWorkTime));
-                Clockdb.setNTimes(Integer.parseInt(Times));
-                Clockdb.setLongRelxTime(Integer.parseInt(LNoWork));
-                //启动Intent
-                //intent.putExtra("tital_data",inputTital);
-                intent.putExtra("number",1);
-                startActivity(intent);*/
                 break;
             default:break;
         }

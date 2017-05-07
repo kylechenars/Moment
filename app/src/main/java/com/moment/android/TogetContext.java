@@ -4,7 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Context;
 
-public class MyApplication extends Application{
+public class TogetContext extends Application{
     private static Context context;
 
     @SuppressLint("MissingSuperCall")

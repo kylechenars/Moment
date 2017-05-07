@@ -4,11 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.moment.android.R;
@@ -42,15 +44,18 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
             mContext=parent.getContext();
         }
         View view= LayoutInflater.from(mContext).inflate(R.layout.fruit_item,parent,false);
+
         final ViewHolder holder=new ViewHolder(view);
         holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Intent intent=new Intent(mContext,Clock.class);
+                int position=holder.getAdapterPosition();
+                Card card=mCardList.get(position);
+                Intent intent=new Intent(mContext,NewClock.class);
                 mContext.startActivity(intent);
             }
         });
-        return new ViewHolder(view);
+        return holder;
     }
 
     @Override

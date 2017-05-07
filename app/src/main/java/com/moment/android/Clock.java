@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.Chronometer;
@@ -40,6 +41,10 @@ public class Clock extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clock);
+
+        Toolbar toolbar=(Toolbar)findViewById(R.id.clock_toolbar);
+        setSupportActionBar(toolbar);
+
         timer = (Chronometer) findViewById(R.id.timer);
         //textView = (TextView) findViewById(R.id.text);
         timer1 = new Timer();

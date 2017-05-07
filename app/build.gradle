@@ -3,6 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.2"
+
     defaultConfig {
         applicationId "com.moment.android"
         minSdkVersion 14
@@ -31,11 +32,14 @@ dependencies {
     compile 'org.litepal.android:core:1.3.2'
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
-    //Design Support的依赖
+    //NavigationView的依赖
     compile 'com.android.support:design:25.3.1'
+    //CircleImageView实现图片圆形化
     compile 'de.hdodenhof:circleimageview:2.1.0'
-    //Glide依赖
+    //recyclerview的依赖
     compile 'com.android.support:recyclerview-v7:25.3.1'
+    //card的依赖
     compile 'com.android.support:cardview-v7:25.3.1'
+    //Glide依赖
     compile 'com.github.bumptech.glide:glide:3.7.0'
 }

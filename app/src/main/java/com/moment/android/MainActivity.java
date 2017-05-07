@@ -8,6 +8,7 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -25,10 +26,8 @@ import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
-
-    private FloatingActionButton Fab;
-
-    private DrawerLayout mDrawerLayout;
+    //private DrawerLayout mDrawerLayout;
+    //水果卡片载入
     private Card[] cards={new Card("Apple",R.drawable.apple),
             new Card("Banana",R.drawable.banana),
             new Card("Orange",R.drawable.orange),
@@ -48,35 +47,42 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Connector.getDatabase();//创建数据库
+        //加载卡片
         initCards();
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recycle_view);
-        GridLayoutManager layoutManager=new GridLayoutManager(this,2);//每一行有两个卡片;
+        //每一行有两个卡片;
+        GridLayoutManager layoutManager=new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
         adapter=new FruitAdapter(cardList);
         recyclerView.setAdapter(adapter);
 
+        //加载Toolbar
         Toolbar toolbar=(Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //Fab按钮新建一个番茄时钟任务
+        //Fab按钮显示使用说明
+        //获取Fab按钮
         FloatingActionButton fab=(FloatingActionButton)findViewById(R.id.fab);
+        //fab的监听事件
         fab.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this,"FAB",Toast.LENGTH_SHORT).show();
-                Intent intentToNewClock=new Intent(MainActivity.this,NewClock.class);
-                startActivity(intentToNewClock);
+                //Intent intentToNewClock=new Intent(MainActivity.this,NewClock.class);
+                //startActivity(intentToNewClock);
             }
         });
-        mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        NavigationView navView=(NavigationView)findViewById(R.id.nav_view);
+        //侧边菜单
+        //mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
+        //获取Navigation实例
+        //NavigationView navView=(NavigationView)findViewById(R.id.nav_view);
         ActionBar actionBar=getSupportActionBar();
         if (actionBar!=null){
-            actionBar.setDisplayHomeAsUpEnabled(true);
-            actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+            //actionBar.setDisplayHomeAsUpEnabled(true);
+            //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         }
-        navView.setCheckedItem(R.id.nav_call);
-        navView.setNavigationItemSelectedListener(new
+        //菜单选项监听器
+        /*navView.setNavigationItemSelectedListener(new
                 NavigationView.OnNavigationItemSelectedListener(){
 
                     @Override
@@ -84,35 +90,37 @@ public class MainActivity extends AppCompatActivity {
                         mDrawerLayout.closeDrawers();
                         return true;
                     }
-                });
+                });*/
     }
 
     private void initCards() {
-        cardList.clear();//清空fruitList里的数据
-        //业务逻辑：每次新建一个番茄时钟，出现一个卡片。
-        /*for (int i=0;i<50;i++){
-            Random random=new Random();
-            int index=random.nextInt(cards.length);
-
-        }*/
-        cardList.add(cards[1]);
+        //清空fruitList里的数据
+        //cardList.clear();
+        //将9种水果卡片载入
+        for (int i=0;i<=8;i++)
+        cardList.add(cards[i]);
 
     }
-
+    //加载toolbar.xml
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.toolbar,menu);
         return true;
     }
-
+    //添加toolbar上的按钮的点击事件
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            case android.R.id.home:
+            //侧边栏
+            /*case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
-                break;
+                break;*/
+            //toolbar右侧menu
             case R.id.settings:
                 Toast.makeText(this,"click",Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.usageEye:
+                Intent intentToUsage=new Intent(MainActivity.this,AppsActivity.class);
+                startActivity(intentToUsage);
             default:break;
         }
         return true;
