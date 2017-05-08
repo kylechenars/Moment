@@ -1,117 +1,117 @@
 package com.moment.android;
 
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Intent;
-import android.database.Cursor;
+import android.content.ServiceConnection;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Chronometer;
-import android.os.SystemClock;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.widget.TextView;
 
 import com.moment.android.Vibrator.VibratorUtil;
 import com.moment.android.db.ClockDB;
+import com.moment.android.service.ClockService;
 
 import org.litepal.crud.DataSupport;
 
 import java.util.List;
-import java.util.Locale;
-import java.util.Timer;
-import java.util.TimerTask;
 
 public class Clock extends AppCompatActivity {
-    private Chronometer timer;
-    private Timer timer1;
-    //private TextView textView;
-    //private TimerTask timerTask;
-    private TextView textTital;
-    private String Tital;
-    private int WorkTime;
-    private int RelxTime;
-    private int HowManyTimes;
-    private int LRelxTime;
+    Chronometer ch;
+    Button start;
+    Button stop;
+    Button clean;
+
+    String Fruitname;
+    public String Tital;
+    TextView TextTial;
+    public int Worktime;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.clock);
-
+        Intent intent=getIntent();
+        Fruitname=intent.getStringExtra("FruitName");
+        //toolbar
         Toolbar toolbar=(Toolbar)findViewById(R.id.clock_toolbar);
         setSupportActionBar(toolbar);
+        //各种控件
+        ch=(Chronometer)findViewById(R.id.timerCh);
+        start=(Button)findViewById(R.id.startT);
+        stop=(Button)findViewById(R.id.stopT);
+        TextTial=(TextView)findViewById(R.id.ClockTital);
+        //设置任务名
+        TextTial.setText(getTI());
+        //点击事件
 
-        timer = (Chronometer) findViewById(R.id.timer);
-        //textView = (TextView) findViewById(R.id.text);
-        timer1 = new Timer();
-        Intent intent=getIntent();
-        Tital=intent.getStringExtra("tital_data");
-        textTital=(TextView) findViewById(R.id.ClockTital);
-        List<ClockDB> clockDBs=DataSupport
-                .select("RelxTime","NTimes","LongRelxTime")
-                .where("EventName=?",Tital)
-                .find(ClockDB.class);
-        for (ClockDB clockDB:clockDBs){
-            //Tital=clockDB.getEventName();
-            RelxTime=clockDB.getRelxTime();
-            HowManyTimes=clockDB.getNTimes();
-            LRelxTime=clockDB.getLongRelxTime();
-        }
-        textTital.setText(Tital);
-        //Intent intent=getIntent();
-        //从创建页得到tital，用tital查询时钟要的其他数据
-        //String eventName=intent.getStringExtra("tital_data");
-        /*int numberID=Integer.parseInt(intent.getStringExtra("number"));
-        //从SQLite查其他数据
-        List<ClockDB> Clocks= DataSupport
-                .select("WorkTime","RelxTime","NTimes", "LongRelxTime")
-                .where("NumberId =?", String.valueOf(numberID))
-                .find(ClockDB.class);
-        for (ClockDB clockDB:Clocks){
-            Tital=clockDB.getEventName();
-            TimeWork=clockDB.getWorkTime();
-            Log.d("Clock","TimeWork is "+TimeWork);
-            RelxTime=clockDB.getRelxTime();
-            HowManyTimes=clockDB.getNTimes();
-            LRelxTime=clockDB.getLongRelxTime();
-        }
-        //String WorkTime=intent.getStringExtra("time_work");
-        //final int TimeWork=Integer.parseInt(WorkTime);//类型转换
-        textTital.setText(Tital);*/
-
-        timer.setOnChronometerTickListener(new Chronometer.OnChronometerTickListener(){
-
+        stop.setOnClickListener(new  View.OnClickListener(){
             @Override
-            public void onChronometerTick(Chronometer chronometer) {
-                List<ClockDB> clockDBss=DataSupport
-                        .select("WorkTime")
-                        .where("EventName=?",Tital)
-                        .find(ClockDB.class);
-                for (ClockDB clockDB:clockDBss){
-                    WorkTime=clockDB.getWorkTime();
-                }
-                if(SystemClock.elapsedRealtime()-timer.getBase()>1000*60*WorkTime)
-                {
-                    long[] prams={50,100,50,100};
-                    VibratorUtil.Vibrate(Clock.this,prams,true);
-                    timer.stop();
-                }
+            public void onClick(View view){
+                ch.stop();
+                ch.setBase(SystemClock.elapsedRealtime());
+                VibratorUtil.VibrateCancel(Clock.this);
+                //停止服务
+                Intent stopIntent=new Intent(Clock.this,ClockService.class);
+                stopService(stopIntent);
             }
         });
-    }
-    public void btnClick(View view) {
-        timer.setBase(SystemClock.elapsedRealtime());//计时器清零
-        int hour = (int) ((SystemClock.elapsedRealtime() - timer.getBase()) / 1000 / 60);
-        timer.setFormat("0"+String.valueOf(hour)+":%s");
-        timer.start();
-    }
-    public void stopClick(View view) {
-        timer.stop();
-        VibratorUtil.VibrateCancel(Clock.this);
+
+        start.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                ch.setBase(SystemClock.elapsedRealtime());//计时器清零
+                int hour = (int) ((SystemClock.elapsedRealtime() - ch.getBase()) / 1000 / 60);
+                ch.setFormat("0"+String.valueOf(hour)+":%s");
+                ch.start();
+            }
+        });
+        //计时器监听事件
+        ch.setOnChronometerTickListener(
+                new Chronometer.OnChronometerTickListener(){
+                    @Override
+                    public void onChronometerTick(Chronometer ch){
+                        if (SystemClock.elapsedRealtime()-ch.getBase()>60*1000*getWT()){
+                            long[] prams={50,100,50,100};
+                            VibratorUtil.Vibrate(Clock.this,prams,true);
+                            Intent startIntent=new Intent(Clock.this,ClockService.class);
+                            //启动服务
+                            startService(startIntent);
+                            ch.stop();
+                        }
+                    }
+                });
     }
 
+
+    public String getTI(){
+        List<ClockDB> clockDBss=DataSupport
+                .select("EventName")
+                .where("FruitName=?",Fruitname)
+                .find(ClockDB.class);
+        for (ClockDB clockDB:clockDBss){
+            Tital=clockDB.getEventName();
+        }
+        return Tital;
+    }
+
+    public int getWT(){
+        List<ClockDB> clockDBss=DataSupport
+                .select("WorkTime")
+                .where("FruitName=?",Fruitname)
+                .find(ClockDB.class);
+        for (ClockDB clockDB:clockDBss){
+            Worktime=clockDB.getWorkTime();
+        }
+        return Worktime;
+    }
 }

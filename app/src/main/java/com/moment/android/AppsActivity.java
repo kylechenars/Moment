@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,6 +34,7 @@ public class AppsActivity extends AppCompatActivity{
 
         Toolbar toolbar=(Toolbar)findViewById(R.id.usage_toolbar);
         setSupportActionBar(toolbar);
+
         //获取权限
         if (UStats.getUsageStatsList(this).isEmpty()){
             Intent intent = new Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS);

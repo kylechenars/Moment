@@ -1,12 +1,8 @@
 package com.moment.android;
 
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
-import android.support.design.internal.NavigationMenuView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +15,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.moment.android.db.ClockDB;
+
+import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     //private DrawerLayout mDrawerLayout;
@@ -46,7 +44,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Connector.getDatabase();//创建数据库
+        //创建数据库
+        Connector.getDatabase();
         //加载卡片
         initCards();
         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.recycle_view);
@@ -121,6 +120,28 @@ public class MainActivity extends AppCompatActivity {
             case R.id.usageEye:
                 Intent intentToUsage=new Intent(MainActivity.this,AppsActivity.class);
                 startActivity(intentToUsage);
+                break;
+            case R.id.delete_DB:
+                AlertDialog.Builder dialog=new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("注意！");
+                dialog.setMessage("点击确定会删除所有记录！！！");
+                dialog.setCancelable(false);
+                dialog.setPositiveButton("确定",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog,int which){
+                        DataSupport.deleteAll(ClockDB.class);
+                        Toast.makeText(MainActivity.this,"删除成功",Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialog.setNegativeButton("取消",new DialogInterface.OnClickListener(){
+                    @Override
+                    public void onClick(DialogInterface dialog,int which){
+                    }
+                });
+                dialog.show();
+                break;
+            case R.id.person:
+                break;
             default:break;
         }
         return true;

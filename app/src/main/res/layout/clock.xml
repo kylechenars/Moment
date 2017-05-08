@@ -20,7 +20,7 @@
         android:layout_weight="2"
         android:format="00:00:00"
         android:gravity="center"
-        android:id="@+id/timer"
+        android:id="@+id/timerCh"
         android:textSize="50sp"/>
     <TextView
         android:id="@+id/ClockTital"
@@ -30,6 +30,7 @@
         android:textSize="36sp"
         android:textColor="#f00"/>
     <Button
+        android:id="@+id/startT"
         android:layout_width="match_parent"
         android:onClick="btnClick"
         android:text="开始"
@@ -37,16 +38,10 @@
         android:layout_weight="1"/>
 
     <Button
+        android:id="@+id/stopT"
         android:layout_width="match_parent"
         android:text="停止"
         android:onClick="stopClick"
         android:layout_height="0dp"
         android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/delete_thisC"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="删除此任务"/>
 </LinearLayout>

@@ -4,21 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.moment.android.R;
+import com.moment.android.db.ClockDB;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.List;
 
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
     private Context mContext;
+    private Context mContext1;
+    private boolean ready;
     private List<Card> mCardList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -38,6 +40,7 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         mCardList=cardList;
     }
 
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,int viewType){
         if (mContext==null){
@@ -48,14 +51,55 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         final ViewHolder holder=new ViewHolder(view);
         holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v){
+            public void onClick(View v){;
                 int position=holder.getAdapterPosition();
                 Card card=mCardList.get(position);
-                Intent intent=new Intent(mContext,NewClock.class);
-                mContext.startActivity(intent);
+                getWIntent(card.getName());
+                /*if (getTFReady(card.getName())){
+                    Intent intent=new Intent(mContext,Clock.class);
+                    intent.putExtra("FruitName",card.getName());
+                    mContext.startActivity(intent);
+                }else {
+                    Intent intent1=new Intent(mContext,NewClock.class);
+                    intent1.putExtra("FruitName",card.getName());
+                    mContext.startActivity(intent1);
+                }*/
             }
         });
         return holder;
+    }
+
+    public void getWIntent(String FruitName){
+        if (getTFReady(FruitName)==false){
+            toNewClock(FruitName);
+        }else if (getTFReady(FruitName)==true){
+            toClock(FruitName);
+        }
+        //toNewClock(FruitName);
+        //toClock(FruitName);
+        //mContext.startActivity(intent1);
+    }
+
+    public void toNewClock(String FruitName){
+        Intent intent1=new Intent(mContext,NewClock.class);
+        intent1.putExtra("FruitName",FruitName);
+        mContext.startActivity(intent1);
+    }
+
+    public void toClock(String FruitName){
+        Intent intent2=new Intent(mContext,Clock.class);
+        intent2.putExtra("FruitName",FruitName);
+        mContext.startActivity(intent2);
+    }
+
+    public boolean getTFReady(String FruitName){
+        List<ClockDB> clockDBs=DataSupport.select("Ready")
+                .where("FruitName=?",FruitName)
+                .find(ClockDB.class);
+        for (ClockDB clockDB:clockDBs){
+            ready=clockDB.getReady();
+        }
+        return ready;
     }
 
     @Override

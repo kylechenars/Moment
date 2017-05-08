@@ -57,66 +57,6 @@
             android:layout_below="@+id/editNameOfEvent"
             android:layout_alignParentRight="true"/>
 
-        <TextView
-            android:id="@+id/textNoWork"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="休息段时长:"
-            android:textSize="36sp"
-            android:layout_below="@+id/textWork"/>
-
-        <EditText
-            android:id="@+id/editNoWorkRange"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editWorkRange"
-            android:layout_toRightOf="@+id/textNoWork"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分钟"
-            android:textSize="36sp"
-            android:layout_toRightOf="@id/editNoWorkRange"
-            android:layout_below="@+id/editWorkRange"/>
-
-        <EditText
-            android:id="@+id/editHowManyTimes"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textNoWork"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="次进行一次长休息"
-            android:textSize="36sp"
-            android:layout_below="@+id/editNoWorkRange"
-            android:layout_toRightOf="@+id/editHowManyTimes"/>
-
-        <TextView
-            android:id="@+id/textLongNoWork"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="长休息："
-            android:textSize="36sp"
-            android:layout_below="@+id/editHowManyTimes"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="分钟"
-            android:textSize="36sp"
-            android:layout_toRightOf="@+id/editLongTimeNoWork"
-            android:layout_below="@id/editHowManyTimes"/>
-
-        <EditText
-            android:id="@+id/editLongTimeNoWork"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/textLongNoWork"
-            android:layout_below="@+id/editHowManyTimes"/>
-
     </RelativeLayout>
 
     <RelativeLayout

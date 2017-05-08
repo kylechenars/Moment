@@ -2,9 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/person"
+        android:icon="@drawable/i_person"
+        android:title="Person"
+        app:showAsAction="always"/>
+
+    <item
         android:id="@+id/usageEye"
         android:icon="@drawable/usageeye"
-        android:title="Photo-Apps"
+        android:title="UsageEye"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/delete_DB"
+        android:icon="@drawable/i_delete"
+        android:title="deleteDB"
         app:showAsAction="always"/>
 
     <item

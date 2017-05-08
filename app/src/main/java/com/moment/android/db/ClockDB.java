@@ -3,15 +3,20 @@ package com.moment.android.db;
 import org.litepal.crud.DataSupport;
 
 public class ClockDB extends DataSupport{
-    //private int NumberId;
+    private String FruitName;
     private String EventName;
     private int WorkTime;
-    private int RelxTime;
-    private int NTimes;
-    private int LongRelxTime;
+    private boolean Ready;
 
-    /*public int getNumberId(){return NumberId;}
-    public void setNumberId(int NumberId){this.NumberId=NumberId;}*/
+    public boolean getReady(){return Ready;}
+    public void setReady(boolean Ready){this.Ready=Ready;}
+
+    public String getFruitName(){
+        return FruitName;
+    }
+    public void setFruitName(String FruitName){
+        this.FruitName=FruitName;
+    }
 
     public String getEventName(){
         return EventName;
@@ -27,24 +32,4 @@ public class ClockDB extends DataSupport{
         this.WorkTime=WorkTime;
     }
 
-    public int getRelxTime(){
-        return RelxTime;
-    }
-    public void setRelxTime(int RelxTime){
-        this.RelxTime=RelxTime;
-    }
-
-    public int getNTimes(){
-        return NTimes;
-    }
-    public void setNTimes(int NTimes){
-        this.NTimes=NTimes;
-    }
-
-    public int getLongRelxTime(){
-        return LongRelxTime;
-    }
-    public void setLongRelxTime(int LongRelxTime){
-        this.LongRelxTime=LongRelxTime;
-    }
 }
