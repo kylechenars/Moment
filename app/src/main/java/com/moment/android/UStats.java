@@ -17,7 +17,6 @@ import java.util.List;
 
 
 public class UStats{
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public static List<UsageStats> getUsageStatsList(Context context){
         UsageStatsManager usm = getUsageStatsManager(context);
@@ -30,7 +29,6 @@ public class UStats{
                 INTERVAL_DAILY,startTime,endTime);
         return usageStatsList;
     }
-
     @SuppressWarnings("ResourceType")
     private static UsageStatsManager getUsageStatsManager(Context context){
         UsageStatsManager usm = (UsageStatsManager) context.getSystemService("usagestats");

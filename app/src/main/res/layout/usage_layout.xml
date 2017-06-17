@@ -11,10 +11,8 @@
         android:layout_height="?attr/actionBarSize"
         android:background="?attr/colorPrimary"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/usage_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
 </LinearLayout>

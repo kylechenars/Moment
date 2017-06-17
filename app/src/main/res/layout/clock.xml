@@ -27,21 +27,17 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.5"
-        android:textSize="36sp"
-        android:textColor="#f00"/>
+        android:textSize="36sp" android:textColor="#f00"/>
     <Button
         android:id="@+id/startT"
         android:layout_width="match_parent"
         android:onClick="btnClick"
         android:text="开始"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
+        android:layout_height="0dp" android:layout_weight="1"/>
     <Button
         android:id="@+id/stopT"
         android:layout_width="match_parent"
         android:text="停止"
         android:onClick="stopClick"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_height="0dp" android:layout_weight="1"/>
 </LinearLayout>

@@ -7,6 +7,10 @@ public class ClockDB extends DataSupport{
     private String EventName;
     private int WorkTime;
     private boolean Ready;
+    private int Key;
+
+    public int getKey(){return  Key;}
+    public void setKey(int Key){this.Key=Key;}
 
     public boolean getReady(){return Ready;}
     public void setReady(boolean Ready){this.Ready=Ready;}

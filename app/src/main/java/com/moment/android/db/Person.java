@@ -1,15 +1,10 @@
 package com.moment.android.db;
 
-/**
- * Created by kyle on 2017/4/19.
- */
+import org.litepal.crud.DataSupport;
 
-public class Person {
+public class Person extends DataSupport{
     private String id;
     private String password;
-    private String city;
-    private String email;
-    private String school;
 
     public String getId(){
         return id;
@@ -23,26 +18,5 @@ public class Person {
     }
     public void setPassword(String password){
         this.password=password;
-    }
-
-    public String getCity(){
-        return city;
-    }
-    public void setCity(String city){
-        this.city=city;
-    }
-
-    public String getEmail(){
-        return email;
-    }
-    public void setEmail(String email){
-        this.email=email;
-    }
-
-    public String getSchool(){
-        return school;
-    }
-    public void setSchool(String school){
-        this.school=school;
     }
 }

@@ -19,8 +19,8 @@ import java.util.List;
 
 public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> {
     private Context mContext;
-    private Context mContext1;
     private boolean ready;
+    private int Key;
     private List<Card> mCardList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
@@ -55,15 +55,6 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
                 int position=holder.getAdapterPosition();
                 Card card=mCardList.get(position);
                 getWIntent(card.getName());
-                /*if (getTFReady(card.getName())){
-                    Intent intent=new Intent(mContext,Clock.class);
-                    intent.putExtra("FruitName",card.getName());
-                    mContext.startActivity(intent);
-                }else {
-                    Intent intent1=new Intent(mContext,NewClock.class);
-                    intent1.putExtra("FruitName",card.getName());
-                    mContext.startActivity(intent1);
-                }*/
             }
         });
         return holder;
@@ -75,9 +66,6 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
         }else if (getTFReady(FruitName)==true){
             toClock(FruitName);
         }
-        //toNewClock(FruitName);
-        //toClock(FruitName);
-        //mContext.startActivity(intent1);
     }
 
     public void toNewClock(String FruitName){
@@ -93,13 +81,15 @@ public class FruitAdapter extends RecyclerView.Adapter<FruitAdapter.ViewHolder> 
     }
 
     public boolean getTFReady(String FruitName){
-        List<ClockDB> clockDBs=DataSupport.select("Ready")
+        List<ClockDB> clockDBs=DataSupport.select("Key","Ready")
                 .where("FruitName=?",FruitName)
                 .find(ClockDB.class);
         for (ClockDB clockDB:clockDBs){
             ready=clockDB.getReady();
+            Key=clockDB.getKey();
         }
-        return ready;
+
+        return Key==1&&ready;
     }
 
     @Override

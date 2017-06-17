@@ -14,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobConfig;
 
 import com.moment.android.db.ClockDB;
 
@@ -44,7 +46,22 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //创建数据库
+        //默认初始化
+        Bmob.initialize(this, "7e3eeb2fefe56c1b7f4f043175339fef");
+        Bmob.initialize(this, "7e3eeb2fefe56c1b7f4f043175339fef","bmob");
+        //设置BmobConfig,允许设置请求超时时间、文件分片上传时每片的大小、文件的过期时间(单位为秒)，
+        BmobConfig config =new BmobConfig.Builder(this)
+        ////设置appkey
+        .setApplicationId("Your Application ID")
+        ////请求超时时间（单位为秒）：默认15s
+        .setConnectTimeout(30)
+        ////文件分片上传时每片的大小（单位字节），默认512*1024
+        .setUploadBlockSize(1024*1024)
+        ////文件的过期时间(单位为秒)：默认1800s
+        .setFileExpiration(2500)
+        .build();
+        Bmob.initialize(config);
+        //创建本地数据库
         Connector.getDatabase();
         //加载卡片
         initCards();
@@ -66,30 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                //Toast.makeText(MainActivity.this,"FAB",Toast.LENGTH_SHORT).show();
-                //Intent intentToNewClock=new Intent(MainActivity.this,NewClock.class);
-                //startActivity(intentToNewClock);
+                Intent intentH=new Intent(MainActivity.this,HelpActivity.class);
+                startActivity(intentH);
             }
         });
-        //侧边菜单
-        //mDrawerLayout=(DrawerLayout)findViewById(R.id.drawer_layout);
-        //获取Navigation实例
-        //NavigationView navView=(NavigationView)findViewById(R.id.nav_view);
-        ActionBar actionBar=getSupportActionBar();
-        if (actionBar!=null){
-            //actionBar.setDisplayHomeAsUpEnabled(true);
-            //actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
-        }
-        //菜单选项监听器
-        /*navView.setNavigationItemSelectedListener(new
-                NavigationView.OnNavigationItemSelectedListener(){
-
-                    @Override
-                    public boolean onNavigationItemSelected(MenuItem item) {
-                        mDrawerLayout.closeDrawers();
-                        return true;
-                    }
-                });*/
     }
 
     private void initCards() {
@@ -109,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
-            //侧边栏
-            /*case android.R.id.home:
-                mDrawerLayout.openDrawer(GravityCompat.START);
-                break;*/
             //toolbar右侧menu
             case R.id.settings:
                 Toast.makeText(this,"click",Toast.LENGTH_SHORT).show();
@@ -141,6 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 dialog.show();
                 break;
             case R.id.person:
+                Intent intentToLogin=new Intent(MainActivity.this,Login.class);
+                startActivity(intentToLogin);
                 break;
             default:break;
         }

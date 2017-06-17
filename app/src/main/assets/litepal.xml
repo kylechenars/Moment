@@ -6,5 +6,6 @@
     <list>
         <mapping class="com.moment.android.db.Person"></mapping>
         <mapping class="com.moment.android.db.ClockDB"></mapping>
+        <mapping class="com.moment.android.db.AppUsageData"></mapping>
     </list>
 </litepal>

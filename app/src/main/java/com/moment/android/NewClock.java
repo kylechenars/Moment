@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.moment.android.db.ClockDB;
 
@@ -68,6 +70,7 @@ public class NewClock extends AppCompatActivity implements View.OnClickListener{
         clockDB.setEventName(inputTital);
         clockDB.setWorkTime(Integer.parseInt(WorkTime));
         clockDB.setReady(true);
+        clockDB.setKey(1);
         clockDB.save();
     }
 
@@ -76,10 +79,14 @@ public class NewClock extends AppCompatActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.buttonMakeNew:
                 getTitalWorkTime();
-                putToDB();
-                Intent intent = new Intent(NewClock.this, Clock.class);
-                intent.putExtra("FruitName", FruitName);;
-                startActivity(intent);
+                if (TextUtils.isEmpty(inputTital)||TextUtils.isEmpty(WorkTime)){
+                    Toast.makeText(this,"请填写完整信息！",Toast.LENGTH_SHORT).show();
+                }else {
+                    putToDB();
+                    Intent intent = new Intent(NewClock.this, Clock.class);
+                    intent.putExtra("FruitName", FruitName);;
+                    startActivity(intent);
+                }
                 break;
             default:break;
         }

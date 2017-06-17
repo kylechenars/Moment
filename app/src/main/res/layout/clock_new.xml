@@ -16,7 +16,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5">
-
         <TextView
             android:id="@+id/textEventName"
             android:layout_width="wrap_content"
@@ -24,7 +23,6 @@
             android:text="事情名称:"
             android:textSize="36sp"
             android:layout_marginTop="18dp"/>
-
         <EditText
             android:id="@+id/editNameOfEvent"
             android:layout_width="200dp"
@@ -32,31 +30,24 @@
             android:layout_toRightOf="@+id/textEventName"
             android:layout_marginTop="23dp"
             android:textSize="20sp"/>
-
         <TextView
             android:id="@+id/textWork"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="工作段时长:"
-            android:textSize="36sp"
-            android:layout_below="@+id/textEventName"/>
-
+            android:textSize="36sp" android:layout_below="@+id/textEventName"/>
         <EditText
             android:id="@+id/editWorkRange"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
+            android:layout_width="100dp" android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/textWork"
             android:layout_below="@+id/editNameOfEvent"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="分钟"
-            android:textSize="36sp"
-            android:layout_toRightOf="@+id/editWorkRange"
+            android:textSize="36sp" android:layout_toRightOf="@+id/editWorkRange"
             android:layout_below="@+id/editNameOfEvent"
             android:layout_alignParentRight="true"/>
-
     </RelativeLayout>
 
     <RelativeLayout

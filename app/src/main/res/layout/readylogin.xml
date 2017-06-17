@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/ready_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/welcome_t"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="欢迎你！"
+            android:textSize="36dp"/>
+
+        <TextView
+            android:id="@+id/wel_Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/welcome_t"
+            android:textSize="36dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/day1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/AppN11"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/AppT11"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/AppN11"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/AppN21"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"
+            android:layout_toRightOf="@id/AppN11"/>
+
+        <TextView
+            android:id="@+id/AppT21"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/AppN21"
+            android:layout_toRightOf="@id/AppN11"
+            android:textSize="15dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/day2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/AppN12"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/AppT12"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/AppN12"
+            android:textSize="15dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/day3"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/AppN13"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:textSize="15dp"/>
+
+        <TextView
+            android:id="@+id/AppT13"
+            android:layout_width="40dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/AppN13"
+            android:textSize="15dp"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>
